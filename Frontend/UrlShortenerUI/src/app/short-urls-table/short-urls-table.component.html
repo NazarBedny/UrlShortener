@@ -1,0 +1,31 @@
+<div class="short-urls-table">
+    <h2>Short URLs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Original URL</th>
+          <th>Short URL</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let url of urls">
+          <td>{{ url.id }}</td>
+          <td>{{ url.originalUrl }}</td>
+          <td>{{ url.shortUrl }}</td>
+          <td>
+            <button (click)="viewUrlInfo(url.id)">View</button>
+            <button *ngIf="isAdmin || isCurrentUser(url.createdBy)" (click)="deleteUrl(url.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="add-url-section" *ngIf="isAuthorized">
+      <h3>Add New URL</h3>
+      <input type="text"  placeholder="Enter URL">
+      <button (click)="addNewUrl()">Add</button>
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </div>
