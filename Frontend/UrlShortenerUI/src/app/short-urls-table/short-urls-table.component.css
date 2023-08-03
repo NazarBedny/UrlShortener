@@ -1,66 +1,66 @@
 .short-urls-table {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .short-urls-table h2 {
-    margin-bottom: 20px;
-  }
-  
-  .short-urls-table table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .short-urls-table th,
-  .short-urls-table td {
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  .short-urls-table th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
-  
-  .short-urls-table button {
-    padding: 6px 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .short-urls-table button:hover {
-    background-color: #0056b3;
-  }
-  
-  .add-url-section {
-    margin-top: 20px;
-  }
-  
-  .add-url-section input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  .add-url-section button {
-    padding: 6px 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .add-url-section button:hover {
-    background-color: #0056b3;
-  }
-  
-  .add-url-section p {
-    color: #ff0000;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.short-urls-table h2 {
+  margin-bottom: 20px;
+}
+
+.short-urls-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.short-urls-table th,
+.short-urls-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.short-urls-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.short-urls-table button {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.short-urls-table button:hover {
+  background-color: #0056b3;
+}
+
+.add-url-section {
+  margin-top: 20px;
+}
+
+.add-url-section input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.add-url-section button {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.add-url-section button:hover {
+  background-color: #0056b3;
+}
+
+.add-url-section p {
+  color: #ff0000;
+}

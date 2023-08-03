@@ -16,7 +16,7 @@ export class LoginComponent {
   jwtDto = new JwtAuth();
   errorMessage = "";
 
-  constructor(private authService: AuthenticationService, private router: Router,private helper:Helper) { }
+  constructor(private authService: AuthenticationService, private router: Router, private helper: Helper) { }
 
 
   login(loginDto: LoginDto) {

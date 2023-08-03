@@ -14,7 +14,7 @@ export class RegistrationComponent {
   registerDto = new RegisterDto();
   jwtDto = new JwtAuth();
 
-// constructor(private router: Router) {
+  // constructor(private router: Router) {
   //   const token = localStorage.getItem('jwtToken');
   //   if (!token) {
   //     this.router.navigate(['/login']); // Редірект на логін сторінку
@@ -22,10 +22,10 @@ export class RegistrationComponent {
   //     this.router.navigate(['/login']); // Редірект на сторінку з таблицею
   //   }
   // }
-  constructor(private authService:AuthenticationService,private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
 
-  registration(registerDto: RegisterDto){
+  registration(registerDto: RegisterDto) {
     const response = this.authService.register(registerDto).subscribe();
     if (response) {
       this.router.navigate(['/login']); // Редірект на логін сторінку

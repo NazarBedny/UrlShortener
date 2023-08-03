@@ -1,5 +1,4 @@
 <div class="short-urls-table">
-  <!-- Заголовок і таблиця -->
   <h2>Short URLs</h2>
   <table>
     <thead>
@@ -10,20 +9,17 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Використання ngFor для ітерації через всі URL -->
+
       <tr *ngFor="let url of allUrls">
         <td>{{ url.originalURL}}</td>
         <td>{{baseUrl + url.shortenedURL}}</td>
         <td>
-          <!-- Кнопки для перегляду та видалення -->
           <button [routerLink]="['/url-info', url.id]">View</button>
           <button *ngIf="isAdmin || isCurrentUser(url.userId)" (click)="deleteUrl(url.id)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <!-- Секція для додавання нового URL -->
   <div class="add-url-section" *ngIf="isLoggedIn">
     <h3>Add New URL</h3>
     <input type="text" [(ngModel)]="newUrl" placeholder="Enter URL">

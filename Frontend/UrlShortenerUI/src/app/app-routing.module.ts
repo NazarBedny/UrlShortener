@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'url-info/:id', component: UrlInfoPageComponent },
   { path: 'table', component: ShortUrlsTableComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }, // Перенаправлення за замовчуванням
+  { path: '**', redirectTo: 'table', pathMatch: 'full' },
 ];
 
 @NgModule({

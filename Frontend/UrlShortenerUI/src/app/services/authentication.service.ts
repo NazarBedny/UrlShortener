@@ -14,18 +14,18 @@ import { JwtAuth } from '../models/JwtAuth';
 export class AuthenticationService {
   registerUrl = "account/no-auth/registration-form";
   loginUrl = "account/no-auth/login";
-  constructor(private http:HttpClient ) { }
+  constructor(private http: HttpClient) { }
 
 
-  public register(user: RegisterDto):Observable<JwtAuth>{
-    return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.registerUrl}`,user);
+  public register(user: RegisterDto): Observable<JwtAuth> {
+    return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.registerUrl}`, user);
   }
-  public login(user: LoginDto):Observable<JwtAuth>{
-    return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`,user);
+  public login(user: LoginDto): Observable<JwtAuth> {
+    return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`, user);
   }
   logout() {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
   }
-  
+
 }

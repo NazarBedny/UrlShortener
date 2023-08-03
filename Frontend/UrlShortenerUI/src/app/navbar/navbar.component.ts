@@ -10,7 +10,7 @@ import { AuthenticationService } from '../services/authentication.service';
 export class NavbarComponent {
   isLoggedIn: boolean = false; // Змінна для визначення, чи користувач ввійшов в систему
 
-  constructor(private router: Router,private authService: AuthenticationService) {
+  constructor(private router: Router, private authService: AuthenticationService) {
     this.checkLoggedIn(); // Виклик функції перевірки при створенні компонента
   }
 

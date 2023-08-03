@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UrlService } from '../services/UrlTableServices/UrlService.service';
 import { Helper } from '../services/HelperServices/Helper.sevice';
@@ -14,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./short-urls-table.component.css']
 })
 export class ShortUrlsTableComponent implements OnInit {
-  allUrls:any;
+  allUrls: any;
   baseUrl = environment.ForShortUrl;
   newUrl: string = '';
   errorMessage: string = '';
@@ -26,8 +26,9 @@ export class ShortUrlsTableComponent implements OnInit {
     private router: Router,
     private urlService: UrlService,
     private helper: Helper,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   async ngOnInit() {
     this.isLoggedIn = this.checkLoggedIn();
@@ -39,7 +40,7 @@ export class ShortUrlsTableComponent implements OnInit {
     this.loadUrls();
   }
 
-  checkLoggedIn():boolean {
+  checkLoggedIn(): boolean {
     const token = localStorage.getItem('jwtToken');
     return token ? true : false;
   }
@@ -48,7 +49,7 @@ export class ShortUrlsTableComponent implements OnInit {
     try {
       const userMetaData = this.helper.getJwtTokenAndUserId();
       const res = await firstValueFrom(this.userService.getUserInfo(userMetaData.userId));
-      
+
       if (res.data.roleId.toUpperCase() === 'ABA6E585-7CEF-4EFA-80BE-6338DED67BAF') {
         return { isAdmin: true, errorMessage: '' };
       } else {
@@ -60,31 +61,35 @@ export class ShortUrlsTableComponent implements OnInit {
   }
 
   loadUrls() {
-    this.urlService.getAllUrls().subscribe(response  => {
+    this.urlService.getAllUrls().subscribe(response => {
       this.allUrls = response.data;
+      this.cdRef.detectChanges();
     });
+
   }
 
   deleteUrl(id: string) {
     this.checkLoggedIn();
     this.urlService.deleteUrl(id).subscribe();
+    this.cdRef.detectChanges();
   }
 
-  addNewUrl(originalUrl:string) {
+  addNewUrl(originalUrl: string) {
     this.checkLoggedIn();
     this.urlService.AddNewUrl(originalUrl).subscribe(response => {
       this.urlService.getAllUrls();
+      this.cdRef.detectChanges();
     });
   }
 
   isCurrentUser(createdBy: string): boolean {
     const userData = this.helper.getJwtTokenAndUserId();
-    if(createdBy == userData.userId){
+    if (createdBy == userData.userId) {
       return true
     }
-    else{
+    else {
       return false;
     }
-    
+
   }
 }

@@ -3,5 +3,5 @@ export class RegisterDto {
     surname = '';
     email = '';
     password = '';
-    confirmPassword= '';
+    confirmPassword = '';
 }

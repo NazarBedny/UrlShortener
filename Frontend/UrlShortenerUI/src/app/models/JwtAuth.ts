@@ -1,9 +1,9 @@
-export class JwtAuth{
-    data= {
-        token:'',
-        id:''
+export class JwtAuth {
+    data = {
+        token: '',
+        id: ''
     }
-    responseCode!:Number;
-    success!:boolean;
-    errors:any;
+    responseCode!: Number;
+    success!: boolean;
+    errors: any;
 }
