@@ -23,6 +23,7 @@ namespace BLL.Services.Registration.Classes
             var response = new Response<Guid>();
             var validator = new RegistrationDtoValidator();
             var validationResult = validator.Validate(registrationFormDto);
+            //data validation
             if (!validationResult.IsValid)
             {
                 response.ResponseСode = System.Net.HttpStatusCode.BadRequest;
@@ -33,6 +34,7 @@ namespace BLL.Services.Registration.Classes
                 response.Success = false;
                 return response;
             }
+            //checking whether the user already exists
             var exist = await _context.Users.AnyAsync(x => x.Email == registrationFormDto.Email);
             if (exist)
             {
@@ -41,7 +43,7 @@ namespace BLL.Services.Registration.Classes
                 response.Success = false;
                 return response;
             }
-
+            
             CreatePasswordHash(registrationFormDto.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var user = new User()
             {
@@ -53,6 +55,7 @@ namespace BLL.Services.Registration.Classes
                 PasswordSalt = passwordSalt,
                 Role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == role)
             };
+            //adding User in database
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();  
 
@@ -60,7 +63,7 @@ namespace BLL.Services.Registration.Classes
             response.Data = user.Id;
             return response;
         }
-
+        //method for password hashing
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())

@@ -29,7 +29,7 @@ namespace BLL.Services.Authorization.Classes
         public async Task<Response<LoginDto>> Login(LoginUserDto loginUserDTO)
         {
             Response<LoginDto> response = new Response<LoginDto>();
-
+            //data validation
             var validator = new LoginDtoValidator();
             var validationResult = validator.Validate(loginUserDTO);
             if (!validationResult.IsValid)
@@ -42,7 +42,7 @@ namespace BLL.Services.Authorization.Classes
                 response.Success = false;
                 return response;
             }
-
+            //validation user existion
             User user = await _context.Users.Include(u=>u.Role).FirstOrDefaultAsync(x => x.Email == loginUserDTO.Email);
             if (user == null)
             {
@@ -70,6 +70,7 @@ namespace BLL.Services.Authorization.Classes
             return response;
         }
 
+        //comparison to match in hashing
         private static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (HMACSHA512 hmac = new HMACSHA512(passwordSalt))
@@ -85,7 +86,7 @@ namespace BLL.Services.Authorization.Classes
                 return true;
             }
         }
-
+        // creation Jwt Token
         public string CreateToken(User user)
         {
             List<Claim> claims = new List<Claim>

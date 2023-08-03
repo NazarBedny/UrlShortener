@@ -22,8 +22,6 @@ namespace BLL
 
             services.AddTransient<IUserService, UserService>();
 
-            services.AddAutoMapper(typeof(MappingProfile));
-
             services.AddMemoryCache();
 
             return services;

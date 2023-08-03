@@ -84,7 +84,8 @@ namespace BLL.Services.UrlService.Classes
             var response = new Response<List<UrlModel>>();
             try
             {
-                var urls = await _context.UrlModels.ToListAsync(); // Отримати всі URL-адреси з бази даних
+                var urls = await _context.UrlModels.ToListAsync(); // gets all urls from database
+                //data validation
                 if (urls.Count <= 0)
                 {
                     response.Success = false;
@@ -92,6 +93,7 @@ namespace BLL.Services.UrlService.Classes
                     response.ResponseСode = System.Net.HttpStatusCode.NotFound;
                     return response;
                 }
+
                 response.Success = true;
                 response.ResponseСode = System.Net.HttpStatusCode.OK;
                 response.Data = urls;
@@ -110,7 +112,8 @@ namespace BLL.Services.UrlService.Classes
             var response = new Response<string>();
             try
             {
-                var urlToDelete = await _context.UrlModels.FirstOrDefaultAsync(x=>x.Id == Id); // Отримати всі URL-адреси з бази даних
+                var urlToDelete = await _context.UrlModels.FirstOrDefaultAsync(x=>x.Id == Id);
+                //data validation
                 if (urlToDelete == null)
                 {
                     response.Success = false;
@@ -140,7 +143,8 @@ namespace BLL.Services.UrlService.Classes
             var response = new Response<UrlModel>();
             try
             {
-                var url = await _context.UrlModels.FirstOrDefaultAsync(x=>x.Id == id); // Отримати всі URL-адреси з бази даних
+                var url = await _context.UrlModels.FirstOrDefaultAsync(x=>x.Id == id);
+                //data validation
                 if (url == null)
                 {
                     response.Success = false;

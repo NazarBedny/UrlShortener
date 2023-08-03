@@ -18,6 +18,7 @@ namespace BLL.Services.Users.Classes
         {
             var response = new Response<User>();
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            //data validation
             if (user == null)
             {
                 response.Success = false;
