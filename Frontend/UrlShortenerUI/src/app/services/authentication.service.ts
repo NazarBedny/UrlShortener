@@ -23,4 +23,9 @@ export class AuthenticationService {
   public login(user: LoginDto):Observable<JwtAuth>{
     return this.http.post<JwtAuth>(`${environment.apiUrl}/${this.loginUrl}`,user);
   }
+  logout() {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userId');
+  }
+  
 }

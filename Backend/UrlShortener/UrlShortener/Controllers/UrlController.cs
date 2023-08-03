@@ -22,9 +22,9 @@ namespace UrlShortener.Controllers
 
         // POST: Create a new shortened URL
         [HttpPost("ShortenURL")]
-        public async Task<ActionResult<Response<UrlModel>>> shorteningURL(string originalURL)
+        public async Task<ActionResult<Response<UrlModel>>> shorteningURL(string originalURL, string userId)
         {
-            var response = await _urlService.MakeUrlShorter(originalURL);
+            var response = await _urlService.MakeUrlShorter(originalURL,Guid.Parse(userId));
             if (!response.Success)
             {
                 return BadRequest(response);
@@ -32,25 +32,36 @@ namespace UrlShortener.Controllers
             return Ok(response.Data);
         }
 
-        [HttpGet("getAllUrls")]
-        public async Task<List<UrlModel>> GetAllUrls()
+        [HttpGet("getUrlById")]
+        public async Task<ActionResult<Response<UrlModel>>> GetUrlById(Guid id)
         {
-            var result =await _urlService.GetAllUrls();
-            if (result.Success == true)
+            var response = await _urlService.GetUrlById(id);
+            if (!response.Success)
             {
-                return result.Data;
+                return BadRequest(response);
             }
-            return result.Data;
+            return Ok(response);
+        }
+
+        [HttpGet("getAllUrls")]
+        public async Task<ActionResult<Response<List<UrlModel>>>> GetAllUrls()
+        {
+            var response = await _urlService.GetAllUrls();
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
         [HttpDelete("deleteUrl")]
-        public async Task<string> DeleteUrl(Guid id)
+        public async Task<ActionResult<string>> DeleteUrl(Guid id)
         {
-            var result = await _urlService.DeleteUrl(id);
-            if (result.Success == true)
+            var response = await _urlService.DeleteUrl(id);
+            if (!response.Success)
             {
-                return result.Data;
+                return BadRequest(response);
             }
-            return result.Data;
+            return Ok(response);
         }
 
     }

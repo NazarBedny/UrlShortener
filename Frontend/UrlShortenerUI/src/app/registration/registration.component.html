@@ -21,6 +21,7 @@
         <label for="confirmPassword">Confirm password:</label>
         <input type="password" [(ngModel)] ="registerDto.confirmPassword" id="confirmPassword" name="confirmPassword" required>
       </div>
-      <button type="submit">Register</button>
+      <button (click) = "registration(registerDto)">Register</button>
     </form>
+    <p>have an account? <a routerLink="/login">Login here</a></p>
   </div>

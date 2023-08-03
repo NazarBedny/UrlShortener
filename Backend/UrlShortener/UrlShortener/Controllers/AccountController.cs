@@ -41,7 +41,7 @@ namespace LearningService.Controllers
                 return BadRequest(response);
             }
 
-            return await _loginService.Login(userDTO);
+            return Ok(response);
         }
 
     }

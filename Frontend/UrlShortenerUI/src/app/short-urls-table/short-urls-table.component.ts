@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UrlService } from '../services/UrlTableServices/UrlService.service';
+import { Helper } from '../services/HelperServices/Helper.sevice';
+import { environment } from 'src/environments/environment';
+import { UserService } from '../services/UserServices/UserService.service';
+import { firstValueFrom } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-short-urls-table',
@@ -6,33 +14,77 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./short-urls-table.component.css']
 })
 export class ShortUrlsTableComponent implements OnInit {
-  urls: any[] = []; // Приклад даних для таблички, ви можете змінити на свої
-
+  allUrls:any;
+  baseUrl = environment.ForShortUrl;
   newUrl: string = '';
   errorMessage: string = '';
 
-  // Приклад, чи користувач є авторизованим та адміністратором
-  isAuthorized: boolean = true;
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private urlService: UrlService,
+    private helper: Helper,
+    private userService: UserService
+  ) {}
 
-  ngOnInit() {}
-
-  viewUrlInfo(id: number) {
-    // Додайте тут логіку для переходу на сторінку з деталями про URL по ID
+  async ngOnInit() {
+    this.isLoggedIn = this.checkLoggedIn();
+    if (this.isLoggedIn) {
+      const adminStatus = await this.checkAdminStatus();
+      this.isAdmin = adminStatus.isAdmin;
+      this.errorMessage = adminStatus.errorMessage;
+    }
+    this.loadUrls();
   }
 
-  deleteUrl(id: number) {
-    // Додайте тут логіку для видалення URL за ID
+  checkLoggedIn():boolean {
+    const token = localStorage.getItem('jwtToken');
+    return token ? true : false;
   }
 
-  addNewUrl() {
-    // Додайте тут логіку для додавання нового URL
+  async checkAdminStatus(): Promise<{ isAdmin: boolean; errorMessage: string }> {
+    try {
+      const userMetaData = this.helper.getJwtTokenAndUserId();
+      const res = await firstValueFrom(this.userService.getUserInfo(userMetaData.userId));
+      
+      if (res.data.roleId.toUpperCase() === 'ABA6E585-7CEF-4EFA-80BE-6338DED67BAF') {
+        return { isAdmin: true, errorMessage: '' };
+      } else {
+        return { isAdmin: false, errorMessage: '' };
+      }
+    } catch (error) {
+      return { isAdmin: false, errorMessage: 'Error checking admin status' };
+    }
+  }
+
+  loadUrls() {
+    this.urlService.getAllUrls().subscribe(response  => {
+      this.allUrls = response.data;
+    });
+  }
+
+  deleteUrl(id: string) {
+    this.checkLoggedIn();
+    this.urlService.deleteUrl(id).subscribe();
+  }
+
+  addNewUrl(originalUrl:string) {
+    this.checkLoggedIn();
+    this.urlService.AddNewUrl(originalUrl).subscribe(response => {
+      this.urlService.getAllUrls();
+    });
   }
 
   isCurrentUser(createdBy: string): boolean {
-    // Додайте логіку для перевірки, чи поточний користувач є автором URL
-    return false;
+    const userData = this.helper.getJwtTokenAndUserId();
+    if(createdBy == userData.userId){
+      return true
+    }
+    else{
+      return false;
+    }
+    
   }
 }

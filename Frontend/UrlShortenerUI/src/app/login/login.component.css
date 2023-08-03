@@ -11,6 +11,10 @@
   .login-form h2 {
     margin-bottom: 10px;
   }
+
+  .error-message {
+    color: red;
+  }
   
   .login-form label {
     display: block;

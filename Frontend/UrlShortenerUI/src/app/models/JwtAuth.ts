@@ -1,5 +1,9 @@
 export class JwtAuth{
-    token='';
-    result:boolean = true;
-    errrs:any;
+    data= {
+        token:'',
+        id:''
+    }
+    responseCode!:Number;
+    success!:boolean;
+    errors:any;
 }

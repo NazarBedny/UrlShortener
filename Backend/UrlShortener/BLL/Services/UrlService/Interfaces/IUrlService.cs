@@ -9,8 +9,9 @@ namespace BLL.Services.UrlService.Interfaces
 {
     public interface IUrlService
     {
-        public Task<Response<UrlModel>> MakeUrlShorter(string Url);
-        public Task<Response<string>> DeleteUrl(Guid Id);
+        public Task<Response<UrlModel>> MakeUrlShorter(string url,Guid userId);
+        public Task<Response<string>> DeleteUrl(Guid id); 
         public Task<Response<List<UrlModel>>> GetAllUrls();
+        public Task<Response<UrlModel>> GetUrlById(Guid id);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DAL.Model
@@ -15,8 +16,6 @@ namespace DAL.Model
 
         public string? Surname { get; set; }
 
-        public string? Phone { get; set; }
-
         public string? Email { get; set; }
 
         public byte[]? PasswordHash { get; set; }
@@ -27,6 +26,7 @@ namespace DAL.Model
 
         public virtual Role? Role { get; set; }
 
+        [JsonIgnore]
         public virtual List<UrlModel> Urls { get; set; }
 
     }

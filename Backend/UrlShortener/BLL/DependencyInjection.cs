@@ -4,6 +4,8 @@ using BLL.Services.Registration.Classes;
 using BLL.Services.Registration.Interfaces;
 using BLL.Services.UrlService.Classes;
 using BLL.Services.UrlService.Interfaces;
+using BLL.Services.Users.Classes;
+using BLL.Services.Users.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BLL
@@ -16,7 +18,9 @@ namespace BLL
 
             services.AddTransient<IRegistrationService, RegistrationService>();
 
-            services.AddTransient<IUrlService, UrlService>(); 
+            services.AddTransient<IUrlService, UrlService>();
+
+            services.AddTransient<IUserService, UserService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 

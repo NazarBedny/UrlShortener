@@ -46,7 +46,7 @@ app.MapControllers();
 app.MapFallback(async (UrlShortenerContext _context, HttpContext ctx) =>
 {
     var path = ctx.Request.Path.ToUriComponent().Trim('/');
-    var urlMatch = await _context.UrlModels.FirstOrDefaultAsync(x => x.ShortenedURL.Trim() == path.Trim());
+    var urlMatch = await _context.UrlModels.FirstOrDefaultAsync(x => x.ShortenedURL == path);
     if (urlMatch == null)
     {
         return Results.BadRequest();

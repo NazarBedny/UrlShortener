@@ -25,11 +25,16 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // make one-to-one connection
+            // make one-to-many connection
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
+
+            modelBuilder.Entity<UrlModel>()
+                .HasOne(u => u.CreatedBy)
+                .WithMany(x => x.Urls)
+                .HasForeignKey(u=>u.UserId);
 
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -45,8 +50,7 @@ namespace DAL
             {
                 builder.HasData(
                     new Role { Id = Guid.Parse("47cf14c1-6ab0-40d3-b48b-de72c8559976"), Name = "User" },
-                    new Role { Id = Guid.Parse("aba6e585-7cef-4efa-80be-6338ded67baf"), Name = "Administrator" },
-                    new Role { Id = Guid.Parse("85cd66d7-2998-4f29-8319-f9cfc08859c7"), Name = "SuperAdmin" }
+                    new Role { Id = Guid.Parse("aba6e585-7cef-4efa-80be-6338ded67baf"), Name = "Administrator" }
                     );
             }
         }
@@ -76,16 +80,6 @@ namespace DAL
                         PasswordHash = passwordHash,
                         PasswordSalt = passwordSalt,
                         RoleId = Guid.Parse("47cf14c1-6ab0-40d3-b48b-de72c8559976"),
-                    },
-                    new User
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Anatoliy",
-                        Surname = "Superadmin",
-                        Email = "anatoliy.superadmin@gmail.com",
-                        PasswordHash = passwordHash,
-                        PasswordSalt = passwordSalt,
-                        RoleId = Guid.Parse("85cd66d7-2998-4f29-8319-f9cfc08859c7"),
                     });
 
             }
